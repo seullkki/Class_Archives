@@ -1,0 +1,74 @@
+[자바 기초 - 7. 객체 지향(OOP)]
+
+
+
+1. String 메소드
+① concat 
+ - 형태 : "문자열".concat("문자열"). concat("문자열");
+ - 문자열끼리 연결시켜주는 역할
+ - 그동안 println으로 문자열을 + 로 연결 시켜 출력했던 것은 사실 컴파일러가 + 대신 concat 메소드를 호출해 둘을 연결 시켜 출력했던 것.
+   문자열 + 숫자도 concat 메소드 + valueOf가 "숫자" 형태를 만들어 출력했던 것. (valueOf 먼저 호출)
+ - concat으로 새로 만들어지는 문자열은 String이 immutable 인스턴스이므로, 각각 다른 인스턴스를 생성해 메모리가 할당되는 것임.
+   
+
+② substring 
+  - 문자열 일부 추출 / 0부터 인자에 입력한 수까지 (첫 번째 숫자는 무조건 0부터 카운트)
+
+
+③ equals
+  - 두 문자열을 서로 비교함 (대소문자까지 비교)
+
+
+④ compareTo
+  - 형태 : 기준 문자열.compareTo( 비교할 문자열(or 참조변수) );
+  - 리턴값 : int 
+  - 두 문자열을 비교해 기준이 되는 문자열이 비교할 문자열보다 '사전 상으로' 먼저 나오는 문자라면 작다고 비교.
+    사전 상으로 뒤에 나오는 문자라면 더 크다고 비교. 
+    ( 두 문자열을 비교해서 서로 다른 문자열을 만나면, 그 두 개의 문자의 아스키 코드 번호를 '기준 - 비교' 해서 그 값을 출력함.
+     때문에 기준이 사전에서 더 먼저 오는 문자라면 값이 작기 때문에 음수가 출력됨.
+     반대로 기준이 나중에 나오는 문자라면 값이 더 크기 때문에 양수 출력됨.)
+  - 비교의 리턴값이 0이면 '일치', 0보다 크면 ' 비교할 문자열이 사전 상 뒤에 등장, 0보다 작으면 '비교할 문자열이 사전 상 앞에 등장'
+    
+
+⑤ compareToIgnoreCase
+  - 형태 : 기준 문자열.compareToIgnoreCase(비교할 문자열);
+  - 리턴값 : int 
+  - 두 문자열을 비교하는데 대소문자 상관 없이 같은 내용이면 '0' 출력,
+    서로 다른 내용이면 '1' 출력
+
+
+⑥ ★ valueOf
+  - 기본 자료형(8개)의 값을 문자열(" ")로 바꿔줌
+  - 형태 : String.valueOf(다른 자료형(or 변수));
+                 --------
+                     ↓ 
+                   static
+
+  - valueOf는 "오버로드"하는 것   
+         static String valueOf(boolean b)
+         static String valueOf(char c)
+         static String valueOf(double d)
+         static String valueOf(float f)
+         static String valueOf(int i)
+         static String valueOf(long l)
+
+
+ - 여러 데이터 타입을 + 연산으로 이은 String 클래스는 각 데이터 타입을 String 인스턴스로 바꿔주기 때문에 인스턴스가 그 때마다 아주 많이 생성됨.
+   = 문자열 결합을 최적화 하지 않은 경우
+   
+ - 문자열 결합의 최적화를 하는 경우 =  StringBuilder
+   → Sting과 다르게 StringBuilder는 "mutable" 인스턴스이므로, 객체를 매번 생성하지 않아 속도가 빠름.
+     
+   → StringBuilder 나 StringBuffer 클래스의 "참조변수 이름.append("추가할 문자열");"을 하게 되면 새로운 문자열에 대한 새로운 인스턴스를 생성하지 않고, 
+     가장 먼저 만들어진 객체에 문자열을 추가해 출력해줌.
+     (cf. append / delete / reverse / replace / substring 등의 메소드는 StringBuilder와 String에 모두 있음)
+       
+   → append 메소드로 추가하는 문자열은 참조 변수를 println으로 출력하려 하면 출력이 x.
+      자바 자체에 오버로딩이 안되어 있기 때문. 따라서 출력까지 하려면 참조변수.toString()을 반드시 붙여주어야 함.
+      
+   → substring(인덱스1, 인덱스2);
+      주어진 문자열의 인덱스1 번호부터 인덱스2 번호 "전까지" 출력해줌.
+      
+   → 모든 메소드의 뒤에 오는 인덱스는 해당 번호까지가 아니라, 해당 번호 "전까지"
+   
+ - StringBuffer는 StringBuilder와 기능이 완전히 동일. buffer가 쓰레드에 더 안전함.
