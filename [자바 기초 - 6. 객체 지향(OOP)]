@@ -1,0 +1,127 @@
+[자바 기초 - 6. 객체 지향(OOP)]
+
+
+
+① 메소드 오버 로딩 vs 오버 라이딩 ★
+
+  1. 메소드 오버 로딩
+    - c언어에서는 이름이 같은 함수는 절대 쓸 수 x. 그러나 OOP에서는 가능.
+    - JVM이 호출된 메소드를 찾을 때 쓰는 정보는 '메소드 이름' + '메소드 매개변수 정보'
+    - 즉, 메소드 이름이 같아도 매개변수의 개수, 데이터 타입이 다르면 서로 다른 함수로 보고 각각 호출할 수 있음.
+    - 그러나 리턴 타입이 다른 것으로는 서로 다른 메소드로 보지 X.
+    
+    - 대표적 오버 로딩 = println();
+      → println(int, char, double, short, long, float, byte, boolean, String)
+      → 각 데이터 타입에 대한 메소드를 정의해두었기 때문에 어떤 데이터 타입을 넣어도 컴파일 됨.
+      
+    - println 같은 오버 로딩을 만들어 놓은 이유 : "캡슐화"
+      → 매개 변수의 데이터 타입에 따라 메소드 이름을 달리 명시해서 사용하도록 했을 수도 있음.
+        (ex. StringPrintln / DoublePrintln)
+      → 어떤 데이터 타입이 와도 같은 기능을 수행하도록 하기 위해 오버로딩.
+      
+    - 오버로딩 시 피해야 할 애매한 상황 : 목적이 명확한 곳에 오버로딩 사용할 것
+        → void simple(int i, int i2)
+          void simple(int i, double i2)
+       
+          참조변수.simple(7, 'K')           → char 'K'는 정수형으로도, 실수형으로도 변환될 수 있기 때문에
+                                              어떤 simple 메소드를 불러와서 값을 넣을지 알 수 x.
+                                              원칙상으로는 가까운 데이터 타입형으로 자동 형변환 되어
+                                              'K'는 int형이 되어 1번 simple 메소드가 호출됨.
+                                              만일 2번 메소드를 호출하고 싶다면, 개발자가 명확히 명시해야 함.
+                                               즉, 참조변수.simple(7, (double)'K') 명시해야 함.
+                                            → 이를 활용하기 보다는 이런 애매한 상황은 피하도록 함.
+
+    - 생성자 오버로딩
+      → 인스턴스의 특징을 정해주는 초기화 값이 상황에 따라 일부 없는 경우도 생길 수 있음.
+      → 따라서 생성자 매개변수에 따라 여러 상황의 생성자를 오버로딩 해놓으면, 사용자가 입력한 값에 따라
+        그에 맞는 생성자를 불러와 값을 입력할 수 있음.
+
+    - this ( = '이 인스턴스' )
+      ① this(); : "생성자 호출 함수" (한 생성자 안에서 다른 생성자를 호출하는 메소드)
+                                     ( = 생성자가 속한 '이 인스턴스'의 다른 생성자 )
+                   여러 생성자 오버로딩이 있을 때, 한 생성자 안에 ' this(해당 생성자와 다른 개수 or 데이터 타입) ' 을 적어주면, 
+                   this 안의 내용과 일치하는 다른 생성자를 호출함.
+                   
+      ② this. : 객체 생성 시 '자기 자신' ( = '이 인스턴스'의 멤버 변수/메소드)
+                생성자의 매개 변수 이름과 인스턴스 변수의 이름이 같을 때, 인스턴스 변수를 표시하는 방법.
+                → cf. ' . ' = 인스턴스 변수/메소드에 접근할 때 쓰는 키워드 
+
+     - 예시 (메소드 오버로딩 / 생성자 오버로딩)
+          1) method overloading 
+          
+          ex) 
+          public void eat(){}
+          public void eat(int count){}
+          public void eat(String menu){}
+          public void eat(String menu,int count){} 
+          ------------------------------------------
+          2) constructor overloading 
+          
+          ex) 
+          Person(){}
+          Person(String name){}
+          Person(int age){}
+          Person(String name, int age){} 
+          
+          [출처] [Java] - 상속(Inheritance), 오버로딩(Overloading), 오버라이딩(Overriding)|작성자 짹짹이
+
+
+
+
+② String 클래스
+  1. String 인스턴스 생성 방법
+     - String st1 = new String("simple string");
+        → st1 이라는 인스턴스를 생성하는 것
+
+     - String st2 = "simple string";
+
+     -cf. 함수 이용 : showString("simple string");                      → "simple string"이 string 인스턴스가 
+                                                                          생성되어 값으로 들어가고, "참조값"을 가리킨 상태.
+                    public static void showString(String str){            이 참조값이 매개변수 인자로 전달되어
+                         System.out.println(str);                         str 참조변수는 참조값을 가리키고 있는 상태.
+                    }                                                     
+                                                                          
+  2. .length()
+     - 해당 문자열의 길이를 알려주는 메소드 (공백 포함)
+     - 형태 : (String 변수이름.length()); 
+
+  3. String 생성 방법의 차이점
+     String str1 = "Simple String";
+     String str2 = "Simple String";
+ 
+     String str3 = new String("Simple String");
+     String str4 = new String("Simple String");
+
+     - str1 = str2 / str3 != str4 
+       → ★ 문자열의 내용이 같은지가 중요한 것이 x. 중요한 것은 "주소값(참조값)"이 같은지 다른지임.
+            
+       → str3가 메모리에 올라가면 할당되는 메모리는 26바이트(한 char 당 2바이트 = char 배열) + 여러 함수.
+         그리고 str3에는 인스턴스 첫 번째 주소값이 들어감.
+         
+       → " " 안의 문자열은 '문자열 상수'라고 함. " " 안의 문자열은 인스턴스 풀(메모리 영역 중 하나)이라는 공간에 올리는데,
+         여기서 내용물이 같으면 컴파일러는 같은 것으로 파악(문자열 "상수"이기 때문)하고,
+         하나의 주소를 여러 string 변수가 공유하게 됨.(= 같은 주소값을 가리키게 됨) 
+         따라서 이때는 대소문자도 구별함.(서로 다른 char로 인식하기 때문)
+
+     - str1 != str4
+       → 서로 참조값이 다르므로 서로 다른 인스턴스. 서로 다른 영역에 만들어지는 인스턴스이기 때문.
+           
+     - String 인스턴스는 'Immutable(변하지 않는)' 인스턴스
+        → ex. String s = "Hello"
+                s = s + "Hello"
+        → 결과는 HelloHello로 출력됨.
+          중요한 것은 s = Hello 와 s = HelloHello 가 서로 다른 인스턴스라는 것.
+          String 인스턴스는 한번 생성되어 값이 입력되면 그 값을 변경시킬 수 없기 때문 = Immutable 객체
+          기존 s에 같은 내용을 더할 뿐이지만, java에서는 HelloHello라는 새로운 인스턴스를 생성해 그 주소값을 가리키도록 되어 있기 때문.
+       → 주의할 점은 변하지 않는 것이 인스턴스의 문자열 내용이고, 주소값이 변하지 않는 것이 x.
+
+  4. .equals
+    - 주소값이 아닌, 문자열의 "내용"을 비교할 때 사용하는 메소드.
+    - 형태 : String 참조변수.equals(비교할 String 참조변수);
+
+  5. String 인스턴스와 switch문
+    - switch문 조건과 case에는 원래 int형으로 승격 가능한 데이터 타입만 들어갈 수 있었으나, 이제 String형도 들어갈 수 있음.
+      
+    - 조건과 case가 주소값으로 비교되기 때문에 가능(주소 = 4바이트 정수)
+      (조건과 case에 들어가는 String 값은 상수이므로 인스턴스 풀에 올려 주소를 할당 받으므로, 같은 상수는 같은 주소를 가리키게 됨.)
+       
