@@ -10,20 +10,24 @@
  
  1. Object 클래스
     - '모든 클래스'는 기본으로 상속하는 클래스가 있음  = Object 클래스
+    
     - 컴파일러에 의해 java.lang.Object 클래스를 상속하는 코드가 자동으로 구성됨.
        → ex. class MyClass ( * extends Object * ) { ... }
+       
     - cf. 컴파일러가 개발자 모르게 해주는 작업들
 	① default 생성자 생성
 	② Object 클래스 상속
+	
     - 이렇게 기본으로 Object 클래스를 상속하게 되면, Object 클래스의 데이터 멤버와 메소드를 사용할 수 있게 됨.
        → 11개의 메소드가 있음 ( 쓰레드 관련 5개 제외하고 6개는 반드시 알아야 함)
-	① String toString();
+	  ① String toString();
        → println(); 의 메커니즘을 하나 더 이해할 수 있음
-           (ex. 다형성이 적용된 인스턴스 생성 - Shape circle = new Circle(10);
-	   System.out.println(circle); --------------------------------- 에러 x
+        (ex. 다형성이 적용된 인스턴스 생성 - Shape circle = new Circle(10);
+	     System.out.println(circle); --------------------------------- 에러 x
 	    → "다형성"에 의해 Object 클래스를 오버라이딩하고 있는 상태. 
-	        (자식(Object)이 가지고 있는 toString 메소드가 호출되는 것.)
+	       (자식(Object)이 가지고 있는 toString 메소드가 호출되는 것.)
 	    → 결과는 Circle 인스턴스 첫 번째 주소가 출력됨.
+	      (이것을 toString 메소드를 통해 리턴값을 주는 내용을 담게 되면, 주소값이 아니라 toString 리턴값을 바로 출력할 수 있음)
 	    → println 안의 String 클래스가 valueof 메소드를 호출해서 인자를 String으로 출력하게됨.
 	        이때 valueof로 String을 출력하려면 또 toString이 필요한데, 이것을 Object 클래스가 가지고 있는 것.
 
@@ -31,13 +35,16 @@
  2. final + 클래스
     - 의미 : final이 붙은 클래스는 어떤  클래스에서도 상속할 수 x.
 
+
  3. final + 메소드
     - 의미 : final이 붙은 메소드는 다른 클래스에서 오버라이딩을 할 수 x.
+
 
  4. @ Override (Annotation)
     - 의미 : 상속 관계에 있는 클래스들에 있는 같은 이름, 같은 리턴타입, but 서로 다른 인자를 가진 메소드는 서로
 	    다른 메소드. 즉, 이것은 오버로딩.
               @Override라고 적어주면, 컴파일러에게 지금 하려는 것의 목적이 오버라이딩이라는 의미.
+
 
 컴파일러에게 코드 문법 에러를 체크하도록 정보를 제공하는 대표적인 예는
 위에어 언급한 @Override 어노테이션 입니다. 
