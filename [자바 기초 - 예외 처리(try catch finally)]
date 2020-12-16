@@ -43,11 +43,12 @@
   
   
  3. try ~ catch
-   - 의미 : 예외 처리를 위해 제공되는 기본 문법
+   - 의미 : 예외 처리를 위해 제공되는 기본 문법	
 
    - 원리 : 자바에서는 예외처리에 대한 메커니즘 제공 = try catch finally
               ( = 예외가 발생하면 예외 표시를 띄워주면서 + 프로그램이 작동 멈춤)
               ( = 예외가 발생하면 JVM이 main을 가진 곳에 예외에 대한 객체를 전달해 출력하면서 프로그램은 종료)
+	      ( = try catch를 쓰지 않아도 된다는 )
               ( 여기에 try ~ catch를 넣어주면, 예외를 만났을 때 JVM이 프로그램을 중지시키는 게 아니라,
                 예외 객체를 try ~ catch로 받아서 내가 지정한 결과를 출력하도록 함)
 
@@ -101,7 +102,7 @@
 
 
  5. 예외의 전달
-    - ex.	class ExceptionMessage {
+    - ex.class ExceptionMessage {
              public static void md1(int n) {
                 md2(n, 0);                               // 아래의 메소드 호출
              }
@@ -130,7 +131,7 @@
       
       
       
- 6. RuntimeException에서 흔히 볼 수 있는 예외
+ 6. RuntimeException에서 흔히 볼 수 있는 예외(Unchecked Exception)
     ① ClassCastException : 클래스 형변환이 잘못된 경우 = 클래스 형변환을 했지만, 형변환한 객체에 접근할 수 없는 경우
                             → ex. 
                                   Board(부모) pbd1 = new PBoard(); (자식)
@@ -152,5 +153,6 @@
                                          int len = str.length();     // 예외 - 현재 인스턴스가 없는 상태인데, 그 안의 문자열의 길이를
                                      }                                  출력하라고 했기 때문에 예외 발생
                                     
-
-
+    ④ AritmeticException : 분모가 0이 입력되었을 때
+    ⑤ NegativeArraySizeException : 배열 길이가 음수로 지정되었을 때
+    ⑥ ArrayStoreException
