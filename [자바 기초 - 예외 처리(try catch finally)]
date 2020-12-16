@@ -156,3 +156,64 @@
     ④ AritmeticException : 분모가 0이 입력되었을 때
     ⑤ NegativeArraySizeException : 배열 길이가 음수로 지정되었을 때
     ⑥ ArrayStoreException
+    
+    
+    
+    
+    
+  7. checked Exception
+   - 의미 : 코드 문법적 예외가 아닌, 프로그램 실행 과정에서 발생하는 예외.
+
+   - 주의 사항 : ★예외의 처리를 어떻게 할 것인지 반드시 명시해야 함.
+	      	 (ex. IOExecption)
+
+   - 특징 
+       → ★ try catch를 사용하지 않으면 예외가 발생한 부분에 빨간 줄이 그어지면서 에러가 뜸.
+            (cf. unchecked Exception은 try catch를 쓰지 않아도 빨간 줄 에러가 뜨진 x)
+            즉, 반드시 예외 처리를 직접 해주어야만 함.(try catch)
+            (RuntimeException 이외에는 거의 다 직접 예외 처리를 해주어야 함)
+
+   - 예외 처리 방법
+     ① try catch
+          → 직접 처리하는 방법
+	  
+     ② throws
+          → 넘기는 방법
+	  
+          → 형태 : 함수 이름 () + throws + checked Exception 객체 { 함수 구현 내용 }
+	  
+          → 의미 : 함수 구현 내용 중에 예외가 발생하면, 발생한 예외의 객체를 해당 함수가 "호출된 부분으로" 넘김.
+	           호출된 부분에서 발생한 예외는 다시 호출된 함수가 속한 함수(함수 정의 부분)가 호출된 부분으로 넘김.
+	           이것을 최종적으로 try catch에서 받으면 예외 처리를 할 수 있음.
+		   
+          → cf. main 함수 뒤에 throws Exception을 입력하면, main 함수에서 발생한 모든 예외가 JVM으로 넘어감
+	       (이 방법은 실전에서는 쓰지 X, 교육용)
+          → cf. throws 예외 객체, 예외 객체, .... 으로 여러 발생 가능한 예외들을 함께 적을 수도 있음
+          → cf. 실전에서는 Exception을 쓰기 보다, 정확한 예외 객체를 때마다 사용해주는 것이 좋음.
+	    
+
+
+   
+ 8. 잘못된 catch
+    - catch를 여러 개 써줄 때, Exception(예외들의 부모가 되는 객체)가 오면 그 아래로 오는 모든 예외 객체에
+      에러가 생김 
+       → 이유 : "다형성" 때문 (Exception 아래의 catch까지 도달하지 못하기 때문)
+       → 수정 방법 : 따라서 부모가 되는 예외 객체는 가장 마지막에 두어야 함.
+
+
+
+ 9. finally
+    - 형태 : try { } + catch( ) { } + finally { }
+    - 의미 : catch가 있다면 반드시 finally를 타게 되어 있음.
+	       → try 내용이 예외가 발생하든, 하지 않든 무조건 finally는 실행됨.
+	       
+	       →그래서 finally에는 예외와 상관 없이 실행해야 하는 명령들을 finally에 넣어주도록 함.
+		(ex. writer.close(); 등 메모리에서 더이상 쓰지 않는 메모리를 삭제하기 위한 명령들)
+		  
+	       →그러나 finally의 내용도 예외가 발생할 수 있기 때문에, 그 안에 다시 try catch를 넣어줘야 함.
+
+    - 'try - with - resources' (1.7 버전 이상에서 지원)
+       → 형태 : try ( "객체 생성" ) { } catch ( ) { } 
+       → finally 대신 try ( ) 안에 객체를 생성(= resources)해줌으로써, try catch 안에서 해당 객체에 대한 메모리 관리 (close까지) 해주도록 함.
+         
+
