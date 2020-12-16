@@ -69,8 +69,7 @@
 
      ```
         @Override
-        protected void finalize() throws Throwable {		// Object 클래스의 finalize를
-        													// 쓰겠다는 의미
+        protected void finalize() throws Throwable {		// Object 클래스의 finalize를 쓰겠다는 의미 			
            super.finalize();   					// 부모 클래스의 finalize 메소드 기능 호출
            System.out.println("destroyed: " + name);		// 자식 클래스에서 구현할 내용
         }
