@@ -109,6 +109,7 @@
         ​										→ 결과는 두 인스턴스의 주소로 비교됨.
    
      2. 오버라이딩 했을 때 :
+     ```
    
         @Override
    
@@ -118,7 +119,7 @@
    
          }
    
-        ```
+      
       ex.
           @Override
         
@@ -253,29 +254,29 @@
 
    - 주의 사항 : clone 메소드 사용할 때 "형변환"
 
-     ```
-  class Point implements Cloneable {
-     
-    . . . . 
-     
-    @Override
-     
-    public Object clone() throws CloneNotSupportedException {
-     
-     return super.clone();
-     
-    }
-     
+```
+class Point implements Cloneable {
+
+  . . . . 
+
+  @Override
+
+  public Object clone() throws CloneNotSupportedException {
+
+   return super.clone();
+
   }
-     
-  ----------------------------------------------------------------------------------
-     
-  Point org = new Point(1, 2);
-     
-  Point cpy = (Point)org.clone();  // 형 변환해야 함
+
+}
+
+----------------------------------------------------------------------------------
+
+Point org = new Point(1, 2);
+
+Point cpy = (Point)org.clone();  // 형 변환해야 함
      ```
 
-     ​																				or
+  																				or
 
      ```
   class Point implements Cloneable {
@@ -297,38 +298,37 @@
      Point org = new Point(1, 2);
      
      Point cpy = org.clone();   // 형 변환 필요 없음
-     ```
+    
    
      
    
    
-   
-   
-   
-   - Shallow Copy
-   
-     - ★ UML 반드시 그릴 수 있어야 함.
-   
-     - shallow copy = 얕은 복사
-   
-     - 얕은 복사, 깊은 복사는 클래스 안에 "참조형이 들어갔을 때" 생기는 문제임.
-   
-     - 의미 : 클래스 안에 객체형(참조형)이 있는데 그것을 clone을 하게 되면, 그 객체형만 clone하고 각 객체형의 객체는 복제하지 x. 객체형들이 생성(new)한 객체들은 가져오지 x. 이런 상태를 Shallow Copy라고 함.
-   
-       따라서 이런 상황을 막으려면 객체의 객체들도 다시 clone 해줘야 함.
-   
-       (주소를 불러오는 것이 아니라 객체를 따로 생성하는 것 = Deep Copy = 깊은 복사)
-   
-       → 이때는 기존 객체의 값의 변화가 복제된 객체의 값까지 변화시킴.
-   
-       ​     서로 다른 값을 대입하기 위해서는 깊은 복사를 해줘야 함.
-   
-     
-   
-   - Deep Copy
-   
-     - ★ UML 반드시 그릴 수 있어야 함.
-     - Deep Copy = 깊은 복사
+```   
+- Shallow Copy
+
+  - ★ UML 반드시 그릴 수 있어야 함.
+
+  - shallow copy = 얕은 복사
+
+  - 얕은 복사, 깊은 복사는 클래스 안에 "참조형이 들어갔을 때" 생기는 문제임.
+
+  - 의미 : 클래스 안에 객체형(참조형)이 있는데 그것을 clone을 하게 되면, 그 객체형만 clone하고 각 객체형의 객체는 복제하지 x. 객체형들이 생성(new)한 객체들은 가져오지 x. 이런 상태를 Shallow Copy라고 함.
+
+    따라서 이런 상황을 막으려면 객체의 객체들도 다시 clone 해줘야 함.
+
+    (주소를 불러오는 것이 아니라 객체를 따로 생성하는 것 = Deep Copy = 깊은 복사)
+
+    → 이때는 기존 객체의 값의 변화가 복제된 객체의 값까지 변화시킴.
+
+    ​     서로 다른 값을 대입하기 위해서는 깊은 복사를 해줘야 함.
+
+  
+
+- Deep Copy
+
+  - ★ UML 반드시 그릴 수 있어야 함.
+  - Deep Copy = 깊은 복사
+
 
 ```
 @Override
@@ -351,7 +351,7 @@ public Object clone() throws CloneNotSupportedException {
 
 ![Shallow, Deep Copy UML](C:\Users\김슬기\Desktop\Shallow, Deep Copy UML.png)
 
-<img width="350" src=https://user-images.githubusercontent.com/75013108/102507776-f94a5580-40c7-11eb-9f60-44a992f208f9.png>
+<src=https://user-images.githubusercontent.com/75013108/102507776-f94a5580-40c7-11eb-9f60-44a992f208f9.png>
 
 
 
