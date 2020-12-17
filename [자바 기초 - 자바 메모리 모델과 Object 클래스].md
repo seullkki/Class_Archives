@@ -280,6 +280,7 @@ Point cpy = (Point)org.clone();  // 형 변환해야 함
 			or			
 			
 
+
   class Point implements Cloneable {
      
     ....
