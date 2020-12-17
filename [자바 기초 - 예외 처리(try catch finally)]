@@ -216,4 +216,4 @@
        → 형태 : try ( "객체 생성" ) { } catch ( ) { } 
        → finally 대신 try ( ) 안에 객체를 생성(= resources)해줌으로써, try catch 안에서 해당 객체에 대한 메모리 관리 (close까지) 해주도록 함.
        → try 안에 Autocloseable을 implements 해주고 있기 때문에 가능
-
+       → try 문을 빠져나갈 때 close 해줌.
