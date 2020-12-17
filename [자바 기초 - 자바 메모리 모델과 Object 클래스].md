@@ -115,7 +115,7 @@
    
          접근 제한자 + 데이터 타입(boolean) + equals(Object obj) {
    
-        ​							구현 내용
+        ​		구현 내용
    
          }
    
@@ -274,11 +274,12 @@ class Point implements Cloneable {
 Point org = new Point(1, 2);
 
 Point cpy = (Point)org.clone();  // 형 변환해야 함
-     ```
+  
+```			
+			
+			or			
+			
 
-  																				or
-
-     ```
   class Point implements Cloneable {
      
     ....
